@@ -1,3 +1,4 @@
+<!-- 屍體
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -37,3 +38,61 @@
 <body>
   <div id="container" tabindex="0" class="blockquote text-nowrap"></div>
 </body>
+-->
+
+
+
+<!-- 成品 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<body>
+  <div id="container" tabindex="0" class="blockquote text-nowrap"></div>
+</body>
+
+<script>
+  var container = document.getElementById('container');
+
+  window.onload = function(){
+    add_new_chars();
+  }
+
+  window.addEventListener('keyup', function(e){
+    console.log(e.key);
+
+    if(e.key == container.textContent[0]){
+      var randstr = container.textContent;
+      container.textContent = randstr.substring(1);
+    }
+    else if(e.key == 'Escape'){
+      container.textContent = "";
+    }
+    else if(e.key == 'Backspace'){
+      var str = container.textContent;
+      container.textContent = str.substring(0,str,length-1);
+    }
+    else{
+      container.textContent += e.key;
+    }
+
+    add_new_chars();
+  });
+
+  function add_new_chars(){
+    //var str = Math.random().toString(36).substr(2); //跑不出來
+    var alphabet= "abcdefghijklmnopqrstuvwxyz";
+    var count= Math.floor(Math.random()*3)+1;
+    for(let i=1;i<=count;i++){
+      container.textContent += alphabet[Math.floor(Math.random()*26)];  //0~25
+    }
+  };
+
+
+  
+  /*
+  textContent 屬性設置或者返回指定節點的文本內容。
+  如果你設置了textContent 屬性, 任何的子節點會被移除及被指定的字符串的文本節點替換。
+  提示：某些時候textContent屬性可以被nodeValue屬性取代，但是請記住這個屬性同樣可以返回所有子節點的文本。
+  */
+</script>
