@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script>
+  var container = document.getElementById('container');
+  window.addEventListener('keyup', function(e){
+    console.log(e.key);
+    var str = add_new_chars();
+    if(e.key == str.key){
+      container.textContent = str.substring(1,str,length-1);
+    }
+    container.textContent += e.key;
+    /*
+    if(e.key == 'Escape'){
+      container.textContent = "";
+    }
+    else if(e.key == 'Backspace'){
+      var str = container.textContent;
+      container.textContent = str.substring(0,str,length-1);
+    }
+    else{
+      container.textContent += e.key;
+    }
+    */
+    //add_new_chars();
+  });
+
+  function add_new_chars(){
+    var str = Math.random().toString(36).substr(3);
+    console.log(str);
+    return str;
+  };
+</script>
+
+
+<body>
+  <div id="container" tabindex="0" class="blockquote text-nowrap"></div>
+</body>
