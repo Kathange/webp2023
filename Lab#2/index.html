@@ -37,31 +37,28 @@
   </body>
   <script>
     var d = ["資工系", "資工系", "資工系", "資工系", "資工系", "資工系"];
-    var c = ["物件導向軟體設計", "計算機網路實驗", "作業系統實務", "生物統計", "通訊系統", "軟硬體專題(2)"];
-    var t = ["黃崇源", "李春良", "張哲維", "陳光武", "陳仁暉", "魏志達"];
+var c = ["物件導向軟體設計", "計算機網路實驗", "作業系統實務", "生物統計", "通訊系統", "軟硬體專題(2)"];
+var t = ["黃崇源", "李春良", "張哲維", "陳光武", "陳仁暉", "魏志達"];
 
-    function addNewData(){
-      var myTable = document.getElementById("csie");
-      var rowCount = c.length;
-      var cellCount = myTable.rows[0].cells.length;
-      for(var i=0;i<rowCount;i++){
-        var row = myTable.insertRow(-1);
-        row.insertCell(0).innerHTML = d[i];
-        row.insertCell(1).innerHTML = c[i];
-        row.insertCell(2).innerHTML = t[i];
-        console.log(d[i],c[i],t[i]);
-      }
-    }
+function addNewData(){
+  var myTable = document.getElementById("csie");
+  var rowCount = c.length;
+  var cellCount = myTable.rows[0].cells.length;
+  for(var i=0;i<rowCount;i++){
+    var row = myTable.insertRow(-1);
+    row.insertCell(0).innerHTML = d[i];
+    row.insertCell(1).innerHTML = c[i];
+    row.insertCell(2).innerHTML = t[i];
+    console.log(d[i],c[i],t[i]);
+  }
+}
 
-    function delOldData(){
-      var myTable = document.getElementById("csie");
-      var rowCount = c.length;
-      var cellCount = myTable.rows[0].cells.length;
-
-      var row = myTable.deleteRow(rowCount);
-      row.deleteCell(0).innerHTML = d[i];
-      row.deleteCell(1).innerHTML = c[i];
-      row.deleteCell(2).innerHTML = t[i];
-    }
+function delOldData(){
+  var myTable = document.getElementById("csie");
+  var rowCount = myTable.rows.length;
+  if(rowCount>1){
+    myTable.deleteRow(-1);
+  }
+}
   </script>
 </html>
