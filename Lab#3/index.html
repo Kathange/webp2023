@@ -55,10 +55,11 @@
     };
     
     function add_new_img(){
-      var myTable = document.getElementById("gallery");
+      var myDiv = document.getElementById("gallery");
       dataset.forEach(function(data, index){
-        var row = myTable.insertRow(-1);
-        row.insert.innerHTML = data['image'];
+        var img = document.createElement("img");
+        img.src = data.urls.regular;
+        myDiv.appendChild(img);
       });
     }
   </script>
