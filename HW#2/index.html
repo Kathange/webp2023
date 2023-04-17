@@ -1,0 +1,129 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+      table { 
+        font-family: Arial, Helvetica, sans-serif; 
+        border-collapse: collapse; 
+        width: 100%; 
+      } 
+      td, th { 
+        border: 1px solid #ddd; 
+        padding: 6px; 
+      } 
+      tr:nth-child(even){background-color: #f2f2f2;} 
+      tr:hover {background-color: #ddd;} 
+      th { 
+        padding-top: 12px; 
+        padding-bottom: 12px; 
+        text-align: left; 
+        background-color: #04AA6D; 
+        color: white; 
+      } 
+    </style>
+  </head>
+  
+  <body>
+    <h1>景點觀光展覽資訊</h1>
+    <input type="text" id="keyword" oninput="searchData()">
+    <table id="csie" class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>名稱</th>
+          <th>地點</th>
+          <th>票價</th>
+        </tr>
+      </thead>
+      <tbody id="data"></tbody>
+    </table>
+    <div id="pagination"></div>
+  </body>
+
+  <script>
+    const page_size = 10;
+    let currentPage = 1;
+    let totalPage = 1;
+    let filteredData = [];
+
+    function loadData() {
+      const openUrl = "https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6";
+      return fetch(openUrl).then(response => response.json());
+    }
+
+    function addNewData() {
+      const tableBody = document.getElementById("data");
+      const start = (currentPage - 1) * page_size;
+      const end = start + page_size;
+      for (var i = start; i < end && i < filteredData.length; i++) {
+        const dataItem = filteredData[i];
+        const row = tableBody.insertRow(-1);
+        row.insertCell(0).innerHTML = dataItem.title;
+        row.insertCell(1).innerHTML = dataItem.showInfo[0].location;
+        row.insertCell(2).innerHTML = dataItem.showInfo[0].price;
+      }
+      updatePagination();
+    }
+
+    function updatePagination() {
+      const pagination = document.getElementById("pagination");
+      pagination.innerHTML = `  ${currentPage} / ${totalPage} 頁 `;
+
+      const prevButton = document.createElement("button");
+      prevButton.innerText = "上一頁";
+      prevButton.disabled = currentPage === 1;
+      prevButton.onclick = () => {
+        if (currentPage > 1) {
+          currentPage--;
+          clearTable();
+          addNewData();
+        }
+      };
+      pagination.insertBefore(prevButton, pagination.firstChild);
+
+      const nextButton = document.createElement("button");
+      nextButton.innerText = "下一頁";
+      nextButton.disabled = currentPage === totalPage;
+      nextButton.onclick = () => {
+        if (currentPage < totalPage) {
+          currentPage++;
+          clearTable();
+          addNewData();
+        }
+      };
+      pagination.appendChild(nextButton);
+    }
+
+    function clearTable() {
+      const tableBody = document.getElementById("data");
+      while (tableBody.firstChild) {
+        tableBody.removeChild(tableBody.firstChild);
+      }
+    }
+
+    function filterData(keyword) {
+      if (!keyword) {
+        filteredData = dataset;
+      } else {
+        const lowerKeyword = keyword.toLowerCase();
+        filteredData = dataset.filter(item => item.title.toLowerCase().includes(lowerKeyword));
+      }
+      totalPage = Math.ceil(filteredData.length / page_size);
+      currentPage = 1;
+      clearTable();
+      addNewData();
+    }
+
+    function searchData() {
+      const keyword = document.getElementById("keyword").value.trim();
+      filterData(keyword);
+    }
+
+    let dataset;
+    loadData().then(data => {
+      dataset = data;
+      filterData();
+    }).catch(error => {
+      console.error(error);
+    });
+  </script>
+</html>
