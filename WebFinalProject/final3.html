@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>簡易訂票系統</title>
+        <meta charset="utf-8">
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Latest compiled JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script src="final3.js"></script>
+        <!-- <link rel="stylesheet" href="final1.css"> -->
+
+        <style>
+            body {
+            background: rgb(255, 255, 255);
+            }
+
+            .container {
+            background-color: lightgrey;
+            padding: 50px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            }
+
+            h1 {
+            text-align: center;
+            color: black;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <form action="">
+                <h1 class="text-center">簡易訂票系統</h1>
+                <div id="ticketMessage"></div>
+        
+                <!-- 第一列 -->
+                <div class="row">
+                <div class="col-sm-6">
+                    <h4>請選擇票數 :</h4>
+                    <div class="input-group mb-3">
+                    <input type="number" id="ticketCount" min="1" value="1" class="form-control">
+                    </div>
+                </div>
+                </div>
+        
+                <!-- 第二列 -->
+                <div class="row">
+                <div class="col-sm-6">
+                    <h4 id="verify_code">驗證碼</h4>
+                    <input type="text" id="verificationCode" placeholder="請輸入驗證碼" class="form-control" required maxlength="6">
+                </div>
+                <div class="col-sm-6">
+                    <div class="col-sm-12">
+                    <h4></h4>
+                    <canvas id='auth-code' style="padding-top: 20px;"></canvas>
+                    <button id="newBtn" class="btn btn-secondary" style="margin-left: 20px; margin-bottom: 40px;">新的圖片</button>
+                    </div>
+                </div>
+                </div>
+                <!-- 第三列 -->
+                <div class="row">
+                <div class="col-sm-12">
+                    <span id="isVerifyCode"></span>
+                </div>
+                </div>
+                <!-- 第四列 -->
+                <div class="row">
+                <div class="col-sm-12">
+                    <button onclick="grabTickets()" class="btn btn-secondary" id="grabTicketsButton" disabled>訂票</button>
+                </div>
+                </div>
+        
+                <div id="ticketAvaliable"></div>
+                <div id="timeBox"></div>
+            </form>
+        </div>
+    </body>
+
+</html>
